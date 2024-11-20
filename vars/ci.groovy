@@ -8,20 +8,30 @@ def call () {
         }
 
         stages {
+
             stage('compile/build') {
-                echo 'compile/build'
+                steps {
+                    echo 'compile/build'
+                }
+
             }
 
             stage('unit-test') {
-                echo 'unit-test'
+                steps {
+                    echo 'unit-test'
+                }
             }
 
             stage('Quality control') {
-                echo 'Sonar-qube'
+                steps {
+                    echo 'Sonar-qube'
+                }
             }
 
             stage('Artifactory') {
-                echo 'Nexus'
+                steps {
+                    echo 'Nexus'
+                }
             }
 
         }
