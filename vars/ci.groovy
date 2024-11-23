@@ -20,7 +20,7 @@ def call () {
 
             stage('unit-test') {
                 steps {
-
+                  common.unit_test()
                 }
             }
 
