@@ -1,49 +1,51 @@
-def call () {
-    try {
-        pipeline {
+def call() {
 
-            agent {
-                node {
-                    label 'ansible'
-                }
-            }
+  if(!env.SONAR_EXTRA_OPTS){
+    env.SONAR_EXTRA_OPTS=" "
+  }
 
-            stages {
+  try {
+    node('workstation') {
 
-                stage('compile/build') {
-                    steps {
-                        script {
-                            common.compile()
-                        }
-                    }
+      stage('Scripted Checkout:SCM') {
+        cleanWs()
+        git branch: 'main', url: "https://github.com/pcs1999/${component}.git"
+        sh 'env'
+      }
 
-                }
+      stage('Compile/Build') {
+        common.compile()
+      }
 
-                stage('unit-test') {
-                    steps {
-                        script {
-                            common.unit_test()
-                        }
-                    }
-                }
+      stage('Unit Tests') {
+        common.unit_test()
+      }
 
-                stage('Quality control') {
-                    steps {
-                        echo 'Sonar-qube'
-                    }
-                }
-
-                stage('Artifactory') {
-                    steps {
-                        echo 'Nexus'
-                    }
-                }
-
-            }
-
+      stage('Quality Control') {
+        SONAR_PASS = sh ( script: 'aws ssm get-parameters --region us-east-1 --names sonarqube.pass  --with-decryption --query Parameters[0].Value | sed \'s/"//g\'', returnStdout: true).trim()
+        SONAR_USER = sh ( script: 'aws ssm get-parameters --region us-east-1 --names sonarqube.user  --with-decryption --query Parameters[0].Value | sed \'s/"//g\'', returnStdout: true).trim()
+        wrap([$class: 'MaskPasswordsBuildWrapper', varPasswordPairs: [[password: "${SONAR_PASS}", var: 'SECRET']]]) {
+          sh "sonar-scanner -Dsonar.host.url=http://172.31.93.103:9000 -Dsonar.login=${SONAR_USER} -Dsonar.password=${SONAR_PASS} -Dsonar.projectKey=${component} -Dsonar.qualitygate.wait=true ${SONAR_EXTRA_OPTS}"
+          sh "echo Sonar Scan"
         }
-    }    catch (Exception e) {
-            common.email('failed')
-        }
+      }
 
+
+
+
+
+      if(env.PUSH_CODE == "true") {
+        stage('Upload Code to Centralized Place') {
+          script {
+            echo "upload"
+          }
+        }
+      }
+
+
+    }
+
+  } catch(Exception e) {
+    common.email("Failed")
+  }
 }
