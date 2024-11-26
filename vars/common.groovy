@@ -56,5 +56,4 @@ def artifactpush() {
 
     }
 
-
 }
