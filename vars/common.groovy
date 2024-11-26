@@ -4,7 +4,7 @@ def compile () {
         sh 'env'
     }
     if (app_lang == "maven") {
-        sh 'mvn clean package'
+        sh 'mvn clean compile package'
     }
     if (app_lang == "golang") {
         sh 'go mod init'
