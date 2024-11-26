@@ -30,6 +30,20 @@ def unit_test () {
     }
 }
 
+def artifactpush(){
+    if (app_lang=="nodejs"){
+        sh "zip -r ${component}-${TAG_NAME}.zip node_modules server.js"
+    }
+//
+//    if (app_lang=="maven"){
+//
+//    }
+//
+//    if (app_lang=="python"){
+//
+//    }
+}
+
 def email (email_note){
     mail bcc: '', body: "failure in : ${JOB_BASE_NAME} pipeline\nTake a look with url\nDisplay_URL:${RUN_DISPLAY_URL}\n jenkins_URL:${JENKINS_URL}" , cc: '', from: 'chandrashekarpendem19@gmail.com', replyTo: '', subject: "Jenkins job:${JOB_BASE_NAME} Failure notification", to: 'chandrashekarpendem19@gmail.com'
 }

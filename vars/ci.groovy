@@ -42,9 +42,7 @@ def call() {
 
       if(env.PUSH_CODE == "true") {
         stage('Upload Code to Centralized Place') {
-          script {
-            echo "upload"
-          }
+         common.artifactpush()
         }
       }
 
