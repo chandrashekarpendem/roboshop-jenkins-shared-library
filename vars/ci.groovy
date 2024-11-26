@@ -4,6 +4,10 @@ def call() {
     env.SONAR_EXTRA_OPTS=" "
   }
 
+  if(!env.extra_files){
+    env.extra_files=" "
+  }
+
   if(!env.TAG_NAME) {
     env.PUSH_CODE = 'false'
   } else{
@@ -35,9 +39,6 @@ def call() {
           sh "echo Sonar Scan"
         }
       }
-
-
-
 
 
       if(env.PUSH_CODE == "true") {
