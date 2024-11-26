@@ -34,6 +34,7 @@ def artifactpush(){
     if (app_lang=="nodejs"){
         sh "zip -r ${component}-${TAG_NAME}.zip node_modules server.js"
     }
+    sh "ls -l"
 //
 //    if (app_lang=="maven"){
 //
