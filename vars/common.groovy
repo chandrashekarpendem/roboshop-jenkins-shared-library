@@ -45,8 +45,9 @@ def artifactpush() {
         sh "zip -r ${component}-${TAG_NAME}.zip * -x Jenkinsfile ${extra_files}"
     }
 
-    if (app_lang == "maven") {
-        sh "mvn package && cp target/${component}-1.0.jar ${component}.jar ${extra_files}"
+
+    if (app_lang == "maven")  {
+        sh "zip -r ${component}-${TAG_NAME}.zip  ${component}.jar VERSION ${extra_files}"
     }
 
     NEXUS_PASS = sh(script: 'aws ssm get-parameters --region us-east-1 --names nexus.pass  --with-decryption --query Parameters[0].Value | sed \'s/"//g\'', returnStdout: true).trim()
