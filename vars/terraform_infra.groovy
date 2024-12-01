@@ -7,7 +7,7 @@ def call (){
         }
 
         parameters {
-            string(name: "INFRA_ENV", default_value: "", description: "enter env like dev or prod")
+            string(name: 'INFRA_ENV', default_value: '', description: 'enter env like dev or prod')
         }
 
         stages{
