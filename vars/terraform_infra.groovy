@@ -15,22 +15,22 @@ def call (){
                 }
 
                     stages{
-                        stage('terraform Init'){
+                        stage('Terraform Init'){
                             steps{
                                 sh "terraform init -backend-config=env-${INFRA_ENV}/state.tfvars"
                             }
                         }
 
-                        stage('terraform Apply or Destroy'){
+                        stage('Terraform Apply or Destroy'){
                             steps{
                                 sh "terraform ${ACTION} -auto-approve -var-file=env-${INFRA_ENV}/main.tfvars"
                             }
                         }
 
                     }
-        post {
+        post{
             always {
-                cleanWS()
+                cleanWs()
             }
         }
     }
