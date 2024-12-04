@@ -10,8 +10,8 @@ def call (){
             }
 
                 parameters {
-                    choice(name: 'INFRA_ENV', defaultValue: '', description: 'enter env like dev or prod')
-                    choice(name: 'Action', defaultValue: '', description: 'Apply or Destroy')
+                    choice(name: 'INFRA_ENV', choices: ['dev', 'prod'], description: 'enter env like dev or prod')
+                    choice(name: 'ACTION', choices: ['apply', 'destroy'], description: 'Pick something')
                 }
 
                     stages{
@@ -23,7 +23,7 @@ def call (){
 
                         stage('terraform Apply or Destroy'){
                             steps{
-                                sh "terraform ${Action} -auto-approve -var-file=env-${INFRA_ENV}/main.tfvars"
+                                sh "terraform ${ACTION} -auto-approve -var-file=env-${INFRA_ENV}/main.tfvars"
                             }
                         }
 
