@@ -36,9 +36,9 @@ def email_notification() {
 }
 
 def artifactpush() {
-   sh " sudo aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 225989332181.dkr.ecr.us-east-1.amazonaws.com "
-
-    sh " sudo docker push 225989332181.dkr.ecr.us-east-1.amazonaws.com/${component}:${TAG_NAME}"
+//   sh " sudo aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 225989332181.dkr.ecr.us-east-1.amazonaws.com "
+//
+//    sh " sudo docker push 225989332181.dkr.ecr.us-east-1.amazonaws.com/${component}:${TAG_NAME}"
 
 //    below commands are used to push Artifact to nexus as we use servers
 //    sh "echo ${TAG_NAME} >version"
