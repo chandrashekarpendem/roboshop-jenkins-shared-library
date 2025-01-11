@@ -56,6 +56,6 @@ def call() {
     }
 
   } catch(Exception e) {
-    common.email("Failed")
+    common.email_notification("Failed")
   }
 }
