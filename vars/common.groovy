@@ -31,7 +31,7 @@ def unit_test () {
     }
 }
 
-def email_notification() {
+def email_notification(email_note) {
     mail bcc: '', body: "failure in : ${JOB_BASE_NAME} pipeline\nTake a look with url\nDisplay_URL:${RUN_DISPLAY_URL}\n jenkins_URL:${JENKINS_URL}" , cc: '', from: 'chandrashekarpendem19@gmail.com', replyTo: '', subject: "Jenkins job:${JOB_BASE_NAME} Failure notification", to: 'chandrashekarpendem19@gmail.com'
 }
 
