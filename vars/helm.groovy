@@ -12,7 +12,7 @@ def call () {
         }
 
         stages {
-            stage('Get values form file') {
+            stage('Get values form file called values.yaml') {
                 steps {
                     dir('APP') {
                         git branch: 'main', url: 'https://github.com/chandrashekarpendem/${COMPONENT}.git'

@@ -23,8 +23,12 @@ def call() {
         sh 'env'
       }
 
-      stage('Compile/Build') {
-        common.compile()
+//      stage('Compile') {
+//        common.compile()
+//      }
+
+      stage('Docker_Build') {
+        common.Docker_build()
       }
 
       stage('Unit Tests') {
@@ -47,9 +51,15 @@ def call() {
         }
       }
 
+//      if(env.PUSH_CODE == "true") {
+//        stage('Upload Code to Centralized Place Nexus') {
+//         common.artifactpush()
+//        }
+//      }
+
       if(env.PUSH_CODE == "true") {
-        stage('Upload Code to Centralized Place ECR/Nexus') {
-         common.artifactpush()
+        stage('Upload images to Centralized Place AWS_ECR') {
+          common.docker_build_push()
         }
       }
 
