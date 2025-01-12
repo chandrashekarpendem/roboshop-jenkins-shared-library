@@ -3,6 +3,7 @@ pipeline {
        label 'workstation'
     }
 
+
     parameters{
         choice(name:'APP_ENV', choices: ['dev', 'prod'], description: 'enter env like dev or prod')
         choice(name:'COMPONENT', choices: ['frontend', 'cart', 'catalogue', 'user', 'payment', 'shipping'], description: 'enter which component')
