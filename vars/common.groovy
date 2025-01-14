@@ -74,13 +74,13 @@ def Docker_build () {
         sh 'go build'
     }
 
-    sh "sudo docker build -t 225989332181.dkr.ecr.us-east-1.amazonaws.com/${component}:${TAG_NAME} . "
+    sh " docker build -t 225989332181.dkr.ecr.us-east-1.amazonaws.com/${component}:${TAG_NAME} . "
 }
 
 
 def docker_build_push(){
 
-    sh " sudo aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 225989332181.dkr.ecr.us-east-1.amazonaws.com "
+    sh "  aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 225989332181.dkr.ecr.us-east-1.amazonaws.com "
 
-    sh " sudo docker push 225989332181.dkr.ecr.us-east-1.amazonaws.com/${component}:${TAG_NAME}"
+    sh "  docker push 225989332181.dkr.ecr.us-east-1.amazonaws.com/${component}:${TAG_NAME}"
 }
