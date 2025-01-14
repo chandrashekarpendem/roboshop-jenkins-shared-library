@@ -27,7 +27,7 @@ def call () {
 
             stage('HELM upgrade/install') {
                 steps {
-                    sh 'helm upgrade   -i ${COMPONENT} ./HELM -f APP/values.yaml --namespace production --set-string image.tag="${APP_VERSION},ENV=${INFRA_ENV},COMPONENT=${COMPONENT}"'
+                    sh 'helm install   -i ${COMPONENT} ./HELM -f APP/values.yaml --namespace production --set-string image.tag="${APP_VERSION},ENV=${INFRA_ENV},COMPONENT=${COMPONENT}"'
                 }
             }
         }
