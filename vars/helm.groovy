@@ -7,6 +7,7 @@ def call () {
             }
         }
         parameters {
+            choice(name: 'INFRA_ENV', choices: ['dev', 'prod'], description: 'enter env like dev or prod')
             choice(name: 'COMPONENT', choices: ['frontend', 'cart', 'catalogue', 'user', 'payment', 'shipping'], description: 'enter which component')
             string(name: 'APP_VERSION', defaultValue: '', description: 'enter APPLICATION version to deploy ')
         }
@@ -26,7 +27,7 @@ def call () {
 
             stage('HELM upgrade/install') {
                 steps {
-                    //              sh 'helm upgrade   -i ${COMPONENT} ./HELM -f APP/values.yaml --namespace production --set-string image.tag="${APP_VERSION},ENV=prod,COMPONENT=${COMPONENT}"'
+                    sh 'helm upgrade   -i ${COMPONENT} ./HELM -f APP/values.yaml --namespace production --set-string image.tag="${APP_VERSION},ENV=${INFRA_ENV},COMPONENT=${COMPONENT}"'
                 }
             }
         }
