@@ -33,5 +33,11 @@ def call () {
         }
 
     }
+    post {
+        always {
+            echo 'Cleaning workspace...'
+            cleanWS() // This cleans the workspace after the pipeline completes
+        }
+    }
 
 }
