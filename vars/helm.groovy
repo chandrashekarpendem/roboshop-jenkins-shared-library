@@ -1,11 +1,8 @@
 def call () {
     pipeline {
 
-        agent {
-            node {
-                label 'workstation'
-            }
-        }
+        agent { label 'workstation' }
+
         parameters {
             choice(name: 'INFRA_ENV', choices: ['dev', 'prod'], description: 'enter env like dev or prod')
             choice(name: 'COMPONENT', choices: ['frontend', 'cart', 'catalogue', 'user', 'payment', 'shipping'], description: 'enter which component')
